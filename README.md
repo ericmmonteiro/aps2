@@ -117,3 +117,41 @@
  		}
  	}
  }
+
+
+
+
+
+package testesistema;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+
+public class SeleniumTestAps2 {
+
+	@Test
+	public void testBuscaEndereco() {
+		CorreioService correioServiceMock = mock(CorreioService.class);
+
+		when(correioServiceMock.buscaEndereco("9000000")).thenReturn("Porto Alegre");
+		when(correioServiceMock.buscaEndereco("8000000")).thenReturn("Av. Assis Brasil");
+
+		String endereco1 = correioServiceMock.buscaEndereco("9000000");
+		String endereco2 = correioServiceMock.buscaEndereco("8000000");
+		String endereco3 = correioServiceMock.buscaEndereco("1234567");
+
+		assertEquals("Porto Alegre", endereco1);
+		assertEquals("Av. Assis Brasil", endereco2);
+		assertEquals("Endereco nao encontrado", endereco3);
+
+		verify(correioServiceMock).buscaEndereco("9000000");
+		verify(correioServiceMock).buscaEndereco("8000000");
+		verify(correioServiceMock).buscaEndereco("1234567");
+	}
+
+}
